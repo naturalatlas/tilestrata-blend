@@ -17,7 +17,7 @@ var blend = require('tilestrata-blend');
 server.registerLayer(function(layer) {
     layer.setName('mylayer');
     layer.registerRoute('combined.png', function(handler) {
-        layer.registerProvider(blend([
+        handler.registerProvider(blend([
             ['satellite','t.png'],
             ['basemap','roads.png'],
             ['basemap','poi.png']
