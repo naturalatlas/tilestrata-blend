@@ -4,7 +4,7 @@ node_js:
   - "0.11"
   - "0.10"
 before_install:
-  - sudo apt-get install libmapnik2.2
+  - sudo apt-get install libmapnik2-2.0 libmapnik2-dev mapnik-utils
 install:
   - npm install tilestrata
   - npm install
