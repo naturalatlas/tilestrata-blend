@@ -3,7 +3,9 @@ sudo: required
 node_js:
   - "0.11"
   - "0.10"
-script:
+before_install:
   - sudo apt-get install mapnik
+install:
   - npm install tilestrata
+script:
   - make test && (make test-ci-coverage || true)
