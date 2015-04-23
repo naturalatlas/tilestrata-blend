@@ -1,4 +1,3 @@
-var gm = require('gm');
 var async = require('async');
 var blend = require('blend');
 var dependency = require('tilestrata-dependency');
