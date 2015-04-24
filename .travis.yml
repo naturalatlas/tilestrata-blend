@@ -1,12 +1,13 @@
 language: node_js
-sudo: required
 node_js:
-  - "0.11"
   - "0.10"
+  - "0.12"
+sudo: false
 before_install:
-  - sudo apt-get install libmapnik2-2.0 libmapnik2-dev mapnik-utils
+  # install c++11 capable libstdc++ without sudo
+  - if [[ $(uname -s) == 'Linux' ]]; then wget https://launchpad.net/~ubuntu-toolchain-r/+archive/ubuntu/test/+files/libstdc%2B%2B6_4.8.1-2ubuntu1~12.04_amd64.deb && dpkg -x libstdc++6_4.8.1-2ubuntu1~12.04_amd64.deb ./ && export LD_PRELOAD=$(pwd)/usr/lib/x86_64-linux-gnu/libstdc++.so.6; fi
 install:
+  - npm install --fallback-to-build=false
   - npm install tilestrata
-  - npm install
 script:
   - make test && (make test-ci-coverage || true)
