@@ -14,20 +14,16 @@ $ npm install tilestrata-blend --save
 ```js
 var blend = require('tilestrata-blend');
 
-server.registerLayer(function(layer) {
-    layer.setName('mylayer');
-    layer.registerRoute('combined.png', function(handler) {
-        handler.registerProvider(blend([
-            ['satellite','t.png'],
-            ['basemap','roads.png'],
-            ['basemap','poi.png']
-        ], {
-            matte: 'ffffff',
-            format: 'jpeg',
-            quality: 90
-        }));
-    });
-});
+server.layer('mylayer').route('combined.png')
+    .use(blend([
+        ['satellite','t.png'],
+        ['basemap','roads.png'],
+        ['basemap','poi.png']
+    ], {
+        matte: 'ffffff',
+        format: 'jpeg',
+        quality: 90
+    }));
 ```
 
 ## Contributing
