@@ -3,7 +3,7 @@
 [![Build Status](http://img.shields.io/travis/naturalatlas/tilestrata-blend/master.svg?style=flat)](https://travis-ci.org/naturalatlas/tilestrata-blend)
 [![Coverage Status](http://img.shields.io/coveralls/naturalatlas/tilestrata-blend/master.svg?style=flat)](https://coveralls.io/r/naturalatlas/tilestrata-blend)
 
-A [TileStrata](https://github.com/naturalatlas/tilestrata) plugin for blending multiple tiles into a single image using [node-blend](https://www.npmjs.com/package/blend). To use this plugin, you must have mapnik in your dependency tree.
+A [TileStrata](https://github.com/naturalatlas/tilestrata) plugin for blending multiple tiles into a single image using [node-blend](https://www.npmjs.com/package/blend). To use this plugin, you must have [mapnik](https://www.npmjs.com/package/mapnik) in your dependency tree.
 
 ```sh
 $ npm install tilestrata-blend --save
