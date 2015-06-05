@@ -1,5 +1,5 @@
 var async = require('async');
-var blend = require('blend');
+var blend = require('mapnik').blend;
 var dependency = require('tilestrata-dependency');
 
 module.exports = function(layers, options) {

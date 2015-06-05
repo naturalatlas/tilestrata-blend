@@ -9,26 +9,17 @@ describe('Provider Implementation "blend"', function() {
 	describe('serve()', function() {
 		it('should blend sources', function(done) {
 			var server = new TileServer();
-			server.registerLayer(function(layer) {
-				layer.setName('srca');
-				layer.registerRoute('a.png', function(handler) {
-					handler.registerProvider({
-						serve: function(server, req, callback) {
-							callback(null, fs.readFileSync(__dirname+'/fixtures/a.png'), {});
-						}
-					});
+			server
+				.layer('srca').route('a.png').use({
+					serve: function(server, req, callback) {
+						callback(null, fs.readFileSync(__dirname+'/fixtures/a.png'), {});
+					}
+				})
+				.layer('srcb').route('b.png').use({
+					serve: function(server, req, callback) {
+						callback(null, fs.readFileSync(__dirname+'/fixtures/b.png'), {});
+					}
 				});
-			});
-			server.registerLayer(function(layer) {
-				layer.setName('srcb');
-				layer.registerRoute('b.png', function(handler) {
-					handler.registerProvider({
-						serve: function(server, req, callback) {
-							callback(null, fs.readFileSync(__dirname+'/fixtures/b.png'), {});
-						}
-					});
-				});
-			});
 
 			var provider = blend([
 				['srca','a.png'],
