@@ -27,7 +27,7 @@
     "async": "^0.9.0",
     "blend": "^1.0.2",
     "fs-extra": "^0.18.2",
-    "tilestrata-dependency": "^0.2.1"
+    "tilestrata-dependency": "^0.3.0"
   },
   "devDependencies": {
     "chai": "^1.10.0",

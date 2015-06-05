@@ -19,10 +19,11 @@ module.exports = function(layers, options) {
 				function loadTiles(callback) {
 					async.map(layers, function(layer, callback) {
 						layer.serve(server, req, function(err, buffer, headers) {
+							if (err && err.statusCode === 404) return callback();
 							callback(err, buffer);
 						});
 					}, function(err, result) {
-						buffers = result;
+						buffers = result.filter(function(buffer) { return !!buffer; });
 						callback(err);
 					});
 				},
