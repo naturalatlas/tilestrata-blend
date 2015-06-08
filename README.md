@@ -3,7 +3,7 @@
 [![Build Status](http://img.shields.io/travis/naturalatlas/tilestrata-blend/master.svg?style=flat)](https://travis-ci.org/naturalatlas/tilestrata-blend)
 [![Coverage Status](http://img.shields.io/coveralls/naturalatlas/tilestrata-blend/master.svg?style=flat)](https://coveralls.io/r/naturalatlas/tilestrata-blend)
 
-A [TileStrata](https://github.com/naturalatlas/tilestrata) plugin for blending multiple tiles into a single image using [node-blend](https://www.npmjs.com/package/blend). To use this plugin, you must have [mapnik](https://www.npmjs.com/package/mapnik) in your dependency tree.
+A [TileStrata](https://github.com/naturalatlas/tilestrata) plugin for blending multiple tiles into a single PNG image. It supports variable opacity and blending modes, and image filters. To use this plugin, you must have [mapnik](https://www.npmjs.com/package/mapnik) in your dependency tree.
 
 ```sh
 $ npm install tilestrata-blend --save
@@ -14,15 +14,29 @@ $ npm install tilestrata-blend --save
 ```js
 var blend = require('tilestrata-blend');
 
+// simple
 server.layer('mylayer').route('combined.png')
     .use(blend([
         ['satellite','t.png'],
         ['basemap','roads.png'],
         ['basemap','poi.png']
     ], {
-        matte: 'ffffff',
-        format: 'jpeg',
-        quality: 90
+        matte: 'ffffff'
+    }));
+
+// with blending modes
+server.layer('mylayer').route('combined.png')
+    .use(blend([
+        ['satellite','t.png'],
+        ['basemap','roads.png'],
+        ['basemap','hillshade.png',{
+            opacity: 0.5,
+            comp_op: 'multiply',
+            image_filters: 'agg-stack-blur(10,10)'
+        }],
+        ['basemap','poi.png']
+    ], {
+        matte: 'ffffff'
     }));
 ```
 

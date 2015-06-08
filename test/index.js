@@ -1,6 +1,7 @@
 var tilestrata = require('tilestrata');
 var TileServer = tilestrata.TileServer;
 var TileRequest = tilestrata.TileRequest;
+var assertImage = require('./utils/assertImage.js');
 var blend = require('../index.js');
 var assert = require('chai').assert;
 var fs = require('fs');
@@ -19,18 +20,14 @@ describe('Provider Implementation "blend"', function() {
 			var provider = blend([
 				['srca','a.png'],
 				['srcb','b.png']
-			], {
-				format: 'jpeg',
-				quality: 100,
-				matte: '4d4c49'
-			});
+			]);
 
 			var req = TileRequest.parse('/srcc/3/2/1/c.png', {'x-tilestrata-skipcache':'1','x-random':'1'}, 'GET');
 			provider.serve(server, req, function(err, buffer, headers) {
 				assert.isFalse(!!err, err);
-				assert.deepEqual(headers, {'Content-Type':'image/jpeg'});
+				assert.deepEqual(headers, {'Content-Type':'image/png'});
 				assert.instanceOf(buffer, Buffer);
-				assert.deepEqual(buffer, fs.readFileSync(__dirname+'/fixtures/b_out.jpg'));
+				assertImage(buffer, __dirname+'/fixtures/b_out.png');
 				done();
 			});
 		}),
@@ -50,19 +47,21 @@ describe('Provider Implementation "blend"', function() {
 
 			var provider = blend([
 				['srca','a.png'],
-				['srcb','b.png']
+				['srcb','b.png',{
+					opacity: 0.8,
+					image_filters: 'agg-stack-blur(5,5)',
+					comp_op: 'overlay'
+				}]
 			], {
-				format: 'jpeg',
-				quality: 100,
 				matte: '4d4c49'
 			});
 
 			var req = TileRequest.parse('/srcc/3/2/1/c.png', {'x-tilestrata-skipcache':'1','x-random':'1'}, 'GET');
 			provider.serve(server, req, function(err, buffer, headers) {
 				assert.isFalse(!!err, err);
-				assert.deepEqual(headers, {'Content-Type':'image/jpeg'});
+				assert.deepEqual(headers, {'Content-Type':'image/png'});
 				assert.instanceOf(buffer, Buffer);
-				assert.deepEqual(buffer, fs.readFileSync(__dirname+'/fixtures/c.jpg'));
+				assertImage(buffer, __dirname+'/fixtures/c.png');
 				done();
 			});
 		});
