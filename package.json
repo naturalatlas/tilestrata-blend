@@ -35,6 +35,6 @@
   },
   "peerDependencies": {
     "tilestrata": "*",
-    "mapnik": ">=1.4.9"
+    "mapnik": "*"
   }
 }

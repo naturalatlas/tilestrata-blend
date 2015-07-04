@@ -30,7 +30,10 @@ module.exports = function(layers, options) {
 				}
 				var matte = new mapnik.Image(canvasSize, canvasSize);
 				matte.fill(new mapnik.Color('#'+options.matte), function(err) {
-					callback(err, matte);
+					if (err) return callback(err);
+					matte.premultiply(function(err) {
+						callback(err, matte);
+					});
 				});
 			});
 
