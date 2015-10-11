@@ -20,6 +20,7 @@ module.exports = function(layers, options) {
 	});
 
 	return {
+		name: 'blend',
 		serve: function(server, req, callback) {
 			var tiles, result, images, matte;
 			var canvasSize;
