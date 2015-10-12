@@ -1,6 +1,6 @@
 # tilestrata-blend
 [![NPM version](http://img.shields.io/npm/v/tilestrata-blend.svg?style=flat)](https://www.npmjs.org/package/tilestrata-blend)
-[![Build Status](http://img.shields.io/travis/naturalatlas/tilestrata-blend/master.svg?style=flat)](https://travis-ci.org/naturalatlas/tilestrata-blend)
+[![Build Status](https://travis-ci.org/naturalatlas/tilestrata-blend.svg)](https://travis-ci.org/naturalatlas/tilestrata-blend)
 [![Coverage Status](http://img.shields.io/coveralls/naturalatlas/tilestrata-blend/master.svg?style=flat)](https://coveralls.io/r/naturalatlas/tilestrata-blend)
 
 A [TileStrata](https://github.com/naturalatlas/tilestrata) plugin for blending multiple tiles into a single PNG image. It supports variable opacity and blending modes, and image filters. To use this plugin, you must have [mapnik](https://www.npmjs.com/package/mapnik) in your dependency tree.
