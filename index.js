@@ -2,6 +2,7 @@ var _ = require('lodash');
 var async = require('async');
 var mapnik = require('mapnik');
 var dependency = require('tilestrata-dependency');
+var noop = function() {};
 
 module.exports = function(layers, options) {
 	options = options || {};
@@ -58,7 +59,7 @@ module.exports = function(layers, options) {
 							// pre-emptively generate matte now that we know the bounds
 							if (!canvasSize) {
 								canvasSize = _image.width();
-								generateMatte(function() {});
+								generateMatte(noop);
 							}
 
 							_image.premultiply(function(err) {
@@ -85,6 +86,11 @@ module.exports = function(layers, options) {
 						intermediate.composite(image, res[1], callback);
 					}, function(err) {
 						if (err) return callback(err);
+						if (!intermediate) {
+							err = new Error('No sources available to blend');
+							err.statusCode = 204;
+							return callback(err);
+						}
 						intermediate.demultiply(function(err) {
 							if (err) return callback(err);
 							intermediate.encode('png', function(err, buffer) {
